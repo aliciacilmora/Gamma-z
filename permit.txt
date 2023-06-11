@@ -1,0 +1,96 @@
+#we need to append the below text to .bashrc file using nano or vi
+alias permit='
+fle=studentDetails.txt
+
+#students won't be able to view outside thier home directory
+
+while IFS=read -r line
+do
+  username=$(echo "$line" | cut -d ' ' -f1)
+  hostel=$(echo "$line" | cut -d ' ' -f3)
+  room=$(echo "$line" | cut -d ' ' -f4)
+  sudo chmod o-wxr /home/"$hostel"/"$room"/"$username"
+done < "$file"
+
+unset username
+unset hostel 
+unset room
+
+#permission for announcements.txt and feeDefaulters.txt
+sudo groupadd agate
+while IFS=read -r line
+do
+  username=$(echo "$line" | cut -d ' ' -f1)
+  sudo usermod -a -G agate "$username"
+done < "$file"
+
+
+sudo groupadd garnetb
+while IFS=read -r line
+do
+  username=$(echo "$line" | cut -d ' ' -f1)
+  sudo usermod -a -G garnetb "$username"
+done < "$file"
+
+
+sudo groupadd garneta
+while IFS=read -r line
+do
+  username=$(echo "$line" | cut -d ' ' -f1)
+  sudo usermod -a -G garneta "$username"
+done < "$file"
+
+
+sudo groupadd opal
+while IFS=read -r line
+do
+  username=$(echo "$line" | cut -d ' ' -f1)
+  sudo usermod -a -G opal "$username"
+done < "$file"
+
+
+
+sudo chown :agate ~/Agate/announcements.txt feeDefaulters.txt
+sudo chown :garnetb ~/GarnetB/announcements.txt feeDefaulters.txt
+sudo chown :garneta ~/GarnetA/announcements.txt feeDefaulters.txt
+sudo chown :opal ~/Opal/announcements.txt feeDefaulters.txt
+
+
+#Hostel wardens should be able to view and edit files of their hostel students
+sudo groupadd aagate
+sudo groupadd agarneta
+sudo groupadd agarnetb
+sudo groupadd aopal
+
+sudo usermod -a -G aagate Agate
+sudo usermod -a -G agarnetb GarnetB
+sudo usermod -a -G agarneta GarnetA
+sudo usermod -a -G aopal Opal
+
+sudo chmod o-wxr ~/Agate
+sudo chmod o-wxr ~/GarnetB
+sudo chmod o-wxr ~/GarnetA
+sudo chmod o-wxr ~/Opal
+
+sudo chown -R :aagate ~/Agate
+sudo chmod -R g+wxr ~/Agate
+
+sudo chown -R :aagate ~/GarnetB
+sudo chmod -R g+wxr ~/GarnetB
+
+sudo chown -R :agarneta ~/GarnetA
+sudo chmod -R g+wxr ~/GarnetA
+
+sudo chown -R :aopal ~/Opal
+sudo chmod -R g+wxr ~/Opal
+
+#HAD should be able to view and eit all the files
+sudo groupadd aHAD
+sudo usermod -a -G aHAD HAD
+sudo chown -R: ~ aHAD
+sudo chmod -R g+wxr ~
+
+#all students should be able to edit the mess.txt file
+sudo chmod o+wxr /home/HAD/mess.txt
+'
+
