@@ -8,7 +8,7 @@ sudo passwd HAD
 
 #making home directory for Hostel Admin
 sudo mkhomedir_helper HAD
-sudo chmod 777 /home/HAD
+sudo chmod u=rwx /home/HAD
 sudo touch /home/HAD mess.txt
 
 
