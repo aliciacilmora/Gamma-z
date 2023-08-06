@@ -22,7 +22,7 @@ then
          echo "$studentpref mess is $messpref" >> /home/HAD/mess.txt
          i++
 
-     elif (messpref==3 && j<=35)
+     elif (messpref==2 && j<=35)
      then
          echo "$studentpref mess is $messpref" >> /home/HAD/mess.txt
          j++
@@ -31,3 +31,4 @@ then
      then
          echo "$studentpref mess is $messpref" >> /home/HAD/mess.txt
          k++
+ done < studentDetails.txt
